@@ -1,0 +1,215 @@
+// ===============================================================
+// Assumed Data Model
+// ===============================================================
+//
+// Collection: products
+// Document ID: {productId}
+// Fields:
+//   - name: string (required)
+//   - sku: string (optional)
+//   - category: string (optional)
+//   - price: number (required)
+//   - cost: number (required)
+//   - stock: number (required)
+//   - minStock: number (optional)
+//   - unitOfMeasure: string (optional)
+//   - weight: number (optional)
+//   - description: string (optional)
+//
+// Collection: customers
+// Document ID: {customerId}
+// Fields:
+//   - name: string (required)
+//   - email: string (optional, email format)
+//   - phone: string (optional)
+//   - address: string (optional)
+//   - taxId: string (optional)
+//
+// Collection: sales
+// Document ID: {saleId}
+// Fields:
+//   - customerId: string (optional)
+//   - customerName: string (optional)
+//   - date: string (required, ISO8601)
+//   - dueDate: string (optional, ISO8601)
+//   - items: list (required)
+//   - subtotal: number (required)
+//   - taxRate: number (required)
+//   - taxAmount: number (required)
+//   - total: number (required)
+//   - status: string (required, enum: ['paid', 'pending', 'cancelled'])
+//   - invoiceNumber: string (optional)
+//
+// ===============================================================
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && 
+        ((exists(/databases/$(database)/documents/users/$(request.auth.uid)) && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin') ||
+         request.auth.token.email == "coopmulsergua2012@gmail.com");
+    }
+
+    function isEditor() {
+      return isAuthenticated() && 
+        (isAdmin() || (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'editor', 'seller']));
+    }
+
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    function isValidEmail(email) {
+      return email is string && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    function isValidDateString(dateStr) {
+      return dateStr is string && dateStr.size() >= 10;
+    }
+
+    function isValidTaxId(taxId) {
+      return taxId is string && taxId.size() >= 5 && taxId.size() <= 20;
+    }
+
+    // ===============================================================
+    // Domain Validators (CRITICAL: Use these in both create and update)
+    // ===============================================================
+
+    function isValidProduct(data) {
+      return hasRequiredFields(['name']) &&
+             data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
+             (!('sku' in data) || (data.sku is string && data.sku.size() < 50)) &&
+             (!('category' in data) || (data.category is string && data.category.size() < 50)) &&
+             (!('price' in data) || data.price is number) &&
+             (!('cost' in data) || data.cost is number) &&
+             (!('stock' in data) || data.stock is number);
+    }
+
+    function isValidCustomer(data) {
+      return hasRequiredFields(['name', 'taxId']) &&
+             data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
+             isValidTaxId(data.taxId) &&
+             (!('email' in data) || isValidEmail(data.email)) &&
+             (!('phone' in data) || (data.phone is string && data.phone.size() < 30)) &&
+             (!('address' in data) || (data.address is string && data.address.size() < 200));
+    }
+
+    function isValidSupplier(data) {
+      return hasRequiredFields(['name', 'taxId']) &&
+             data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
+             isValidTaxId(data.taxId) &&
+             (!('email' in data) || isValidEmail(data.email)) &&
+             (!('phone' in data) || (data.phone is string && data.phone.size() < 30)) &&
+             (!('address' in data) || (data.address is string && data.address.size() < 200));
+    }
+
+    function isValidSale(data) {
+      return hasRequiredFields(['date', 'items', 'total', 'status', 'invoiceNumber', 'controlNumber']) &&
+             isValidDateString(data.date) &&
+             data.items is list && data.items.size() < 100 &&
+             data.total is number &&
+             data.status in ['paid', 'pending', 'cancelled'] &&
+             data.invoiceNumber is string && data.invoiceNumber.size() < 20 &&
+             data.controlNumber is string && data.controlNumber.size() < 20;
+    }
+
+    function isValidPurchase(data) {
+      return hasRequiredFields(['date', 'items', 'total', 'status', 'invoiceNumber', 'controlNumber']) &&
+             isValidDateString(data.date) &&
+             data.items is list && data.items.size() < 100 &&
+             data.total is number &&
+             data.status in ['received', 'pending', 'cancelled'] &&
+             data.invoiceNumber is string && data.invoiceNumber.size() < 20 &&
+             data.controlNumber is string && data.controlNumber.size() < 20;
+    }
+
+    function isValidSettings(data) {
+      return hasRequiredFields(['bcvRate', 'bcvDate', 'profitMarginFactor', 'lastInvoiceNumber', 'lastControlNumber']) &&
+             data.bcvRate is number &&
+             isValidDateString(data.bcvDate) &&
+             data.profitMarginFactor is number &&
+             data.lastInvoiceNumber is number &&
+             data.lastControlNumber is number;
+    }
+
+    function isValidUser(data) {
+      return hasOnlyAllowedFields(['uid', 'name', 'email', 'role']) &&
+             data.uid is string &&
+             data.email is string && isValidEmail(data.email) &&
+             data.role in ['admin', 'seller', 'editor'];
+    }
+
+    // ===============================================================
+    // Collection Rules
+    // ===============================================================
+
+    // Products
+    match /products/{productId} {
+      allow read: if isAuthenticated();
+      allow create: if isEditor() && isValidProduct(request.resource.data);
+      allow update: if isEditor() && isValidProduct(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // Customers
+    match /customers/{customerId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isValidCustomer(request.resource.data);
+      allow update: if isAuthenticated() && isValidCustomer(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // Sales
+    match /sales/{saleId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isValidSale(request.resource.data);
+      allow update: if (isEditor() && isValidSale(request.resource.data)) || (isAuthenticated() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']) && request.resource.data.status in ['paid', 'pending', 'cancelled']);
+      allow delete: if isAdmin();
+    }
+
+    // Settings
+    match /settings/{settingId} {
+      allow read: if isAuthenticated();
+      allow create: if isAdmin() && isValidSettings(request.resource.data);
+      allow update: if (isAdmin() && isValidSettings(request.resource.data)) || (isAuthenticated() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['lastInvoiceNumber', 'lastControlNumber']) && request.resource.data.lastInvoiceNumber is number && request.resource.data.lastControlNumber is number);
+      allow delete: if isAdmin();
+    }
+
+    // Suppliers
+    match /suppliers/{supplierId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isValidSupplier(request.resource.data);
+      allow update: if isAuthenticated() && isValidSupplier(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // Purchases
+    match /purchases/{purchaseId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isValidPurchase(request.resource.data);
+      allow update: if isEditor() && isValidPurchase(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // Users (Profiles)
+    match /users/{userId} {
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isAdmin() || (resource != null && resource.data.email == request.auth.token.email));
+      allow create: if isAuthenticated() && (request.auth.uid == userId || isAdmin()) && isValidUser(request.resource.data) && (request.resource.data.role == 'seller' || isAdmin());
+      allow update: if isAuthenticated() && (request.auth.uid == userId || isAdmin()) && isValidUser(request.resource.data) && (request.resource.data.role == resource.data.role || isAdmin());
+    }
+  }
+}

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Gestión de Facturación, Compra, Venta, Inventario</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Potente plataforma de gestión empresarial con facturación, inventario, reportes en PDF/Excel y estadísticas avanzadas para optimizar tu negocio.">
+    <meta name="keywords" content="facturación, inventario, gestión pymes, reportes excel pdf, sistema contable, sisgestfactpro, venezuela, colombia, latinoamerica">
+    <meta name="author" content="SisGestFactPro">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sistema de Gestión de Facturación, Compra, Venta e Inventario">
+    <meta property="og:description" content="Control total de facturación e inventario con reportes avanzados y base de datos cloud incluida.">
+    <meta property="og:image" content="https://picsum.photos/seed/dashboard/1200/630">
+    
+    <meta name="robots" content="index, follow">
+    <!-- Clarity tracking code for https://sisgesfactpro.web.app/ -->
+
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wf9vot3p53");
+</script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#2563eb',
+                            dark: '#111827',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+        }
+        .accordion-content.open {
+            max-height: 1000px;
+            opacity: 1;
+        }
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+        .transition-transform {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-white font-sans text-gray-900 selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 z-50 w-full border-b border-gray-100 bg-white/80 backdrop-blur-md">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-2">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 font-bold text-white shadow-lg shadow-blue-200">
+                    S
+                </div>
+                <span class="text-xl font-bold tracking-tight text-gray-900">SisGestFact<span class="text-blue-600">Pro</span></span>
+                <span class="text-xl font-bold tracking-tight text-xl" style="color: rgb(243, 243, 7);">Ven<span class="text-blue-600">ezu<span class="text-xl" style="color:red">ela</span></span></span>
+            </div>
+            <div class="hidden items-center gap-8 md:flex text-sm font-medium text-gray-600">
+                <a href="#caracteristicas" class="hover:text-blue-600 transition-colors">Características</a>
+                <a href="#estadisticas" class="hover:text-blue-600 transition-colors">Estadísticas</a>
+                <a href="#servicios" class="hover:text-blue-600 transition-colors">Servicios</a>
+                <a href="#faq" class="hover:text-blue-600 transition-colors">FAQ</a>
+                <a href="https://wa.me/584243496129" target="_blank" rel="noopener noreferrer" class="rounded-full bg-blue-600 px-5 py-2.5 font-semibold text-white shadow-md hover:bg-blue-700 transition-all hover:scale-105 active:scale-95">Comenzar Ahora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute top-0 left-1/2 -z-10 h-[600px] w-full -translate-x-1/2 [background:radial-gradient(circle_at_center,_#eff6ff_0%,_transparent_70%)]"></div>
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+            <div class="fade-in-up">
+                <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
+                    Lleva tu Negocio al <span class="text-blue-600">Siguiente Nivel</span>
+                </h1>
+                <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-600 leading-relaxed">
+                   Sistemas de Control total de facturación, inventario y ventas con una plataforma web profesional, visible en cualquier pantalla, escalable y segura. Diseñada para emprendedores que buscan eficiencia y reportes avanzados.
+                </p>
+                <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-600 leading-relaxed">
+                    Sistema de nomina, te ayudara a controlar los pagos, generar constancias, pagos de bancos con txt, controlar sus asignaciones y deducciones calculos a tasa actual
+                </p>
+                <div class="mt-10 flex flex-wrap justify-center gap-4">
+                    <a href="https://sisgesfactpro002-rb25.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full bg-gray-900 px-8 py-4 text-base font-bold text-white shadow-xl hover:bg-gray-800 transition-all hover:-translate-y-1">
+                        Ver Demo SisGesFactPro <i data-lucide="globe" class="h-5 w-5"></i>
+                    </a>
+                    
+                    <a href="https://sis-nom001.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full bg-gray-900 px-8 py-4 text-base font-bold text-white shadow-xl hover:bg-gray-800 transition-all hover:-translate-y-1">
+                        Ver Demo SisNomina <i data-lucide="globe" class="h-5 w-5"></i>
+                    </a>
+                    <a href="https://sisadminviveres.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full bg-gray-900 px-8 py-4 text-base font-bold text-white shadow-xl hover:bg-gray-800 transition-all hover:-translate-y-1">
+                        Ver Demo SisAdminViveres <i data-lucide="globe" class="h-5 w-5"></i>
+                    </a>
+                    <a href="https://wa.me/584243496129" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border-2 border-gray-200 bg-white px-8 py-4 text-base font-bold text-gray-700 hover:border-blue-600 hover:text-blue-600 transition-all">
+                        Consultar Instalación <i data-lucide="message-square" class="h-5 w-5"></i>
+                    </a>
+                </div>
+               
+                <div class="mt-10 flex flex-wrap justify-center gap-3">
+                <p> Usuario vendedor sisgesfactpro: feliperojas1926@gmail.com, contraseña 111111</p></div>
+                <div class="mt-10 flex flex-wrap justify-center gap-3">
+                <p> Usuario administrador: feliperojas26@yahoo.es, contraseña 111111</p></div></div>
+            <br>
+            <!-- Carruceles ***************************************-->
+                <section class="py-24 bg-blue-600 text-white overflow-hidden relative">
+                    <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 h-96 w-96 rounded-full bg-blue-500 opacity-20 blur-3xl text-3xl"></div>
+                    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+                        <div class="max-w-3xl">
+                            <h2 class="text-3xl font-bold sm:text-4xl mb-8 flex items-center gap-3 text-center">
+                                Sistemas Administrativo <i data-lucide="database" class="h-9 w-9"></i>
+                            </h2>
+                        </div>
+                    </div>
+               
+            
+                <div class="tabs " style="width: 100%;">
+                 
+                    <button  id="pestaña1" style="background:#d1cddf;" >
+                        GesFactPro</button>
+                    <button id="pestaña2" >
+                        Nomina</button>
+                    <button id="pestaña3" >
+                        Viveres</button>
+<!-- tab 1 -->
+                    <div id="Tab1" class="tab-content" >
+                        
+                
+                            <style>
+                                .carrusel-contenedor { width: 100%; overflow: hidden; position: relative; }
+                                .carrusel-track { display: flex; transition: transform 0.5s ease-in-out; }
+                                .carrusel-item { min-width: 100%; box-sizing: border-box; padding: 20px; background: #ddd; text-align: center; }
+                               
+                                .btn-prev { left: 10px; }
+                                .btn-next { right: 10px; }
+                            </style>
+<!-- carrucel 1 -->
+                            <div class="carrusel-contenedor">
+                                <div class="carrusel-track" id="track">
+                                    <div class="carrusel-item carru1"> <img src="/image/sisgesfactpro1.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                    <div class="carrusel-item carru1"><img src="/image/sigefsact.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                    <div class="carrusel-item carru1"><img src="/image/sisgesfactpro2.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                    <div class="carrusel-item carru1"> <img src="/image/sigefsact3.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                    <div class="carrusel-item carru1"><img src="/image/sigefsact4.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                    <div class="carrusel-item carru1"><img src="/image/sigefsact5.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                    <div class="carrusel-item carru1"> <img src="/image/sigefsact6.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                    <div class="carrusel-item carru1"><img src="/image/sigefsact7.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                    <div class="carrusel-item carru1"><img src="/image/sigefsact8.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                    <div class="carrusel-item carru1"> <img src="/image/sigefsact9.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                    <div class="carrusel-item carru1"><img src="/image/sigefsact10.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                    <div class="carrusel-item carru1"><img src="/image/sigefsact11.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                    <div class="carrusel-item carru1"><img src="/image/sigefsact12.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                </div>
+                                <button class="btn-prev rounded-full bg-blue-600 px-5  font-semibold text-white shadow-md hover:bg-blue-700 transition-all hover:scale-105 active:scale-95" onclick="mover(-1)" style="position: absolute; top: 50%; transform: translateY(-50%);  ">Anterior</button>
+                                <button class="btn-next rounded-full bg-blue-600 px-5  font-semibold text-white shadow-md hover:bg-blue-700 transition-all hover:scale-105 active:scale-95" onclick="mover(1)" style="position: absolute; top: 50%; transform: translateY(-50%);  ">Siguiente</button>
+                            </div>
+                            
+                            <script>
+                                let indice = 0;
+                                function mover(direccion) {
+                                    const track = document.getElementById('track');
+                                    const items = document.querySelectorAll('.carru1');
+                                    indice = (indice + direccion + items.length) % items.length;
+                                    track.style.transform = `translateX(-${indice * 100}%)`;
+                                }
+                            </script>                            
+                    
+                            
+                    
+                    
+                    </div>
+<!-- tab 2 -->
+                    <div id="Tab2" class="tab-content" style="display:none;">
+<!-- carrucel 2 -->
+                        <div class="carrusel-contenedor">
+                            <div class="carrusel-track" id="track2">
+                                <div class="carrusel-item carru2"> <img src="/image/SisNom.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                <div class="carrusel-item carru2"><img src="/image/SisNom1.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                <div class="carrusel-item carru2"><img src="/image/SisNom2.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                <div class="carrusel-item carru2"> <img src="/image/SisNom3.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                <div class="carrusel-item carru2"><img src="/image/SisNom4.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                <div class="carrusel-item carru2"><img src="/image/SisNom5.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                <div class="carrusel-item carru2"> <img src="/image/SisNom6.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                <div class="carrusel-item carru2"><img src="/image/SisNom7.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                <div class="carrusel-item carru2"><img src="/image/SisNom8.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                <div class="carrusel-item carru2"> <img src="/image/SisNom9.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                <div class="carrusel-item carru2"><img src="/image/SisNom10.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                <div class="carrusel-item carru2"><img src="/image/SisNom11.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                                <div class="carrusel-item carru2"><img src="/image/SisNom12.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+                            </div>
+                            <button class="btn-prev rounded-full bg-blue-600 px-5  font-semibold text-white shadow-md hover:bg-blue-700 transition-all hover:scale-105 active:scale-95" onclick="mover2(-1)" style="position: absolute; top: 50%; transform: translateY(-50%);  ">Anterior</button>
+                            <button class="btn-next rounded-full bg-blue-600 px-5  font-semibold text-white shadow-md hover:bg-blue-700 transition-all hover:scale-105 active:scale-95" onclick="mover2(1)" style="position: absolute; top: 50%; transform: translateY(-50%);  ">Siguiente</button>
+                    </div>
+                            <script>
+                                let indice2 = 0;                               
+                                function mover2(direccion2) {
+                                const track2 = document.getElementById('track2');
+                                const items2 = document.querySelectorAll('.carru2');                            
+                                indice2 = (indice2 + direccion2 + items2.length) % items2.length;                                
+                                track2.style.transform = `translateX(-${indice2 * 100}%)`;                               
+                            };
+                            </script> 
+                    </div>
+<!-- tab 3 -->
+                    <div id="Tab3" class="tab-content" style="display:none;">
+<!-- carrucel 3 -->
+<div class="carrusel-contenedor">
+    <div class="carrusel-track" id="track3">
+        <div class="carrusel-item carru3"> <img src="/image/SisViveres.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+        <div class="carrusel-item carru3"><img src="/image/SisViveres1.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+        <div class="carrusel-item carru3"><img src="/image/SisViveres2.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+        <div class="carrusel-item carru3"> <img src="/image/SisViveres3.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+        <div class="carrusel-item carru3"><img src="/image/SisViveres4.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+        <div class="carrusel-item carru3"><img src="/image/SisViveres.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+        <div class="carrusel-item carru3"> <img src="/image/SisViveres6.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+        <div class="carrusel-item carru3"><img src="/image/SisViveres7.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+        <div class="carrusel-item carru3"><img src="/image/SisViveres8.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+        <div class="carrusel-item carru3"> <img src="/image/SisViveres9.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+        <div class="carrusel-item carru3"><img src="/image/SisViveres10.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+        <div class="carrusel-item carru3"><img src="/image/SisViveres11.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+        <div class="carrusel-item carru3"><img src="/image/SisViveres12.webp" alt="Dashboard Preview" class="w-full rounded-xl shadow-inner object-cover aspect-video" referrerPolicy="no-referrer"></div>
+    </div>
+    <button class="btn-prev rounded-full bg-blue-600 px-5  font-semibold text-white shadow-md hover:bg-blue-700 transition-all hover:scale-105 active:scale-95" onclick="mover3(-1)" style="position: absolute; top: 50%; transform: translateY(-50%);  ">Anterior</button>
+    <button class="btn-next rounded-full bg-blue-600 px-5  font-semibold text-white shadow-md hover:bg-blue-700 transition-all hover:scale-105 active:scale-95" onclick="mover3(1)" style="position: absolute; top: 50%; transform: translateY(-50%);  ">Siguiente</button>
+</div>
+    <script>
+        let indice3 = 0;                               
+        function mover3(direccion3) {
+        const track3 = document.getElementById('track3');
+        const items3 = document.querySelectorAll('.carru3');                            
+        indice3 = (indice3 + direccion3 + items3.length) % items3.length;                                
+        track3.style.transform = `translateX(-${indice3 * 100}%)`;                               
+    };
+    </script>
+                    </div>
+
+                </div>
+            </section>
+                <style> 
+                .tab-content { padding: 20px; border: 1px solid #d1cddf; }
+                #pestaña1 {  padding: 10px; border: 1px solid #1f23f8; width: auto; color: red; }
+                #pestaña2 { padding: 10px; border: 1px solid #1f23f8; width: auto; color: white; opacity: 0.7;}
+                #pestaña3 {  padding: 10px; border: 1px solid #1f23f8; width: auto; color:white; opacity: 0.7; }
+             
+                </style>
+               
+                <script>
+                let texto1 = document.getElementById('pestaña1');
+                let texto2 = document.getElementById('pestaña2');
+                let texto3 = document.getElementById('pestaña3');
+                let Tab1 = document.getElementById('Tab1');
+                let Tab2 = document.getElementById('Tab2');
+                let Tab3 = document.getElementById('Tab3');
+
+                texto1.onclick = function() {
+                    // Al perder el enfoque (pestaña inactiva)
+                   
+                    texto2.style.color = "white"; // Rojo
+                    texto1.style.color = "red"; // Verde
+                    texto3.style.color = "white"; // Rojo
+                    texto2.style.opacity = "0.7"; // Rojo
+                    texto1.style.opacity = "1"; // Rojo
+                    texto3.style.opacity = "0.7"; // Rojo
+                    texto2.style.background = "none"; // Verde
+                    texto1.style.background = "#d1cddf"; // opacidad
+                    texto3.style.background = "none"; // Verde
+                    Tab1.style.display = "block"; 
+                    Tab2.style.display = "none"; 
+                    Tab3.style.display = "none"; 
+                   
+                };
+
+                texto2.onclick = function() {
+                    // Al perder el enfoque (pestaña inactiva)                   
+                    texto1.style.color = "white"; // Rojo
+                    texto2.style.color = "red"; // Verde
+                    texto3.style.color = "white"; // Verde
+                    texto1.style.opacity = "0.7"; // opacidad
+                    texto2.style.opacity = "1"; // opacidad
+                    texto3.style.opacity = "0.7"; // opacidad
+                    texto1.style.background = "none"; // Verde
+                    texto2.style.background = "#d1cddf"; // Verde
+                    texto3.style.background = "none"; // Verde
+                    Tab1.style.display = "none"; 
+                    Tab2.style.display = "block"; 
+                    Tab3.style.display = "none";
+                                        
+                };
+                texto3.onclick = function() {
+                    // Al perder el enfoque (pestaña inactiva)                   
+                    texto1.style.color = "white"; // Rojo
+                    texto2.style.color = "white"; // Verde
+                    texto3.style.color = "red"; // Verde
+                    texto1.style.opacity = "0.7"; // opacidad
+                    texto2.style.opacity = "0.7"; // opacidad
+                    texto3.style.opacity = "1"; // opacidad
+                    texto1.style.background = "none"; // Verde
+                    texto2.style.background = "none"; // Verde
+                    texto3.style.background = "#d1cddf"; // Verde
+                    Tab1.style.display = "none"; 
+                    Tab2.style.display = "none"; 
+                    Tab3.style.display = "block"; 
+                                        
+                };
+                </script>
+
+            
+    </section>
+
+    <!-- Features Grid -->
+    <section id="caracteristicas" class="py-24 bg-gray-50">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Funcionalidades de Alto Nivel</h2>
+                <p class="mt-4 text-lg text-gray-600">Todo lo que necesitas para gestionar tu empresa en un solo lugar.</p>
+            </div>
+
+            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Feature 1 -->
+                <div class="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
+                    <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                        <i data-lucide="file-check" class="h-7 w-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Facturación Pro</h3>
+                    <p class="mt-3 text-gray-600 leading-relaxed">Genera facturas profesionales al instante, gestionando IVA, descuentos y métodos de pago diversos.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
+                    <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                        <i data-lucide="package" class="h-7 w-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Inventario Inteligente</h3>
+                    <p class="mt-3 text-gray-600 leading-relaxed">Control de stock en tiempo real con alertas de bajo inventario y trazabilidad total de productos.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
+                    <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                        <i data-lucide="shopping-cart" class="h-7 w-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Ventas y Compras</h3>
+                    <p class="mt-3 text-gray-600 leading-relaxed">Registro detallado de transacciones para un flujo de caja impecable y control de egresos.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
+                    <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                        <i data-lucide="users" class="h-7 w-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Gestión de Proveedores</h3>
+                    <p class="mt-3 text-gray-600 leading-relaxed">Mantén base de datos de proveedores y clientes con historial de compras deudores y pagos.</p>
+                </div>
+                <!-- Feature 5 -->
+                <div class="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
+                    <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                        <i data-lucide="shield-check" class="h-7 w-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Seguridad Robusta</h3>
+                    <p class="mt-3 text-gray-600 leading-relaxed">Acceso mediante autenticación segura. Diferentes niveles de seguridad para proteger tus datos sensibles.</p>
+                </div>
+                <!-- Feature 6 -->
+                <div class="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
+                    <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                        <i data-lucide="workflow" class="h-7 w-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Escalabilidad</h3>
+                    <p class="mt-3 text-gray-600 leading-relaxed">Diseñado para crecer con tu negocio. Maneja miles de transacciones sin perder velocidad ni precisión.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics & Reports -->
+    <section id="estadisticas" class="py-24 overflow-hidden">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="grid items-center gap-16 lg:grid-cols-2">
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Toma Decisiones con Datos Reales</h2>
+                    <p class="mt-6 text-lg text-gray-600 leading-relaxed">
+                        No adivines, analiza. El sistema genera automáticamente estadísticas de rendimiento que te permiten ver qué está funcionando y qué debe mejorar.
+                    </p>
+                    
+                    <ul class="mt-10 space-y-4">
+                        <li class="flex items-center gap-3 text-gray-700 font-medium">
+                            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-50 text-green-600">
+                                <i data-lucide="bar-chart-3" class="h-4 w-4"></i>
+                            </div>
+                            Productos más vendidos y menos vendidos.
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 font-medium">
+                            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-50 text-green-600">
+                                <i data-lucide="pie-chart" class="h-4 w-4"></i>
+                            </div>
+                            Reportes de ganancias mensuales y anuales.
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 font-medium">
+                            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-50 text-green-600">
+                                <i data-lucide="box" class="h-4 w-4"></i>
+                            </div>
+                            Alertas visuales de productos con bajo inventario.
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 font-medium">
+                            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-50 text-green-600">
+                                <i data-lucide="file-spreadsheet" class="h-4 w-4"></i>
+                            </div>
+                            Exportación masiva a Excel para contabilidad.
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-700 font-medium">
+                            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-50 text-green-600">
+                                <i data-lucide="file-text" class="h-4 w-4"></i>
+                            </div>
+                            Generación de facturas y reportes en PDF profesional.
+                        </li>
+                    </ul>
+                </div>
+                <div class="relative">
+                    <div class="absolute inset-0 -z-10 translate-x-4 translate-y-4 rounded-2xl bg-blue-100"></div>
+                    <img src="/image/sigefsact.webp" alt="Statistics Preview" class="rounded-2xl shadow-xl object-cover" referrerPolicy="no-referrer">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cloud DB Section -->
+    <section class="py-24 bg-blue-600 text-white overflow-hidden relative">
+        <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 h-96 w-96 rounded-full bg-blue-500 opacity-20 blur-3xl text-3xl"></div>
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-3xl">
+                <h2 class="text-3xl font-bold sm:text-4xl mb-8 flex items-center gap-3">
+                    Base de Datos Cloud Incluida <i data-lucide="database" class="h-9 w-9"></i>
+                </h2>
+                <p class="text-xl text-blue-100 mb-12 italic">
+                    "Velocidad y potencia para tu información."
+                </p>
+                
+                <div class="grid gap-8 sm:grid-cols-3">
+                    <div class="rounded-xl border border-blue-400 bg-blue-500/30 p-6 backdrop-blur-sm">
+                        <div class="text-4xl font-bold mb-2">52k</div>
+                        <div class="text-blue-200 text-sm font-medium uppercase tracking-wider">Conexiones Gratuitas</div>
+                    </div>
+                    <div class="rounded-xl border border-blue-400 bg-blue-500/30 p-6 backdrop-blur-sm">
+                        <div class="text-4xl font-bold mb-2">20k</div>
+                        <div class="text-blue-200 text-sm font-medium uppercase tracking-wider">Lecturas Diarias</div>
+                    </div>
+                    <div class="rounded-xl border border-blue-400 bg-blue-500/30 p-6 backdrop-blur-sm">
+                        <div class="text-4xl font-bold mb-2">20k</div>
+                        <div class="text-blue-200 text-sm font-medium uppercase tracking-wider">Escrituras Diarias</div>
+                    </div>
+                </div>
+                
+                <p class="mt-12 text-blue-100/80 text-sm italic">
+                    * El sistema utiliza una arquitectura cloud optimizada que garantiza la disponibilidad de tus datos 24/7 sin costos operativos mensuales de base de datos para la mayoría de las configuraciones.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="servicios" class="py-24 bg-white">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Implementación Profesional</h2>
+                <p class="mt-4 text-lg text-gray-600">Servicio integral de despliegue y personalización para tu empresa.</p>
+            </div>
+
+            <div class="grid gap-12 lg:grid-cols-2">
+                <div class="rounded-3xl bg-gray-900 text-white p-10 shadow-xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-8 text-gray-800">
+                        <i data-lucide="rocket" class="h-20 w-20 opacity-10 group-hover:opacity-20 transition-opacity"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-white">Paquete de Instalación</h3>
+                    <p class="text-gray-400 mb-8">Ofrecemos un servicio llave en mano para que no te preocupes por la parte técnica.</p>
+                    
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="download" class="h-5 w-5 text-blue-500 shrink-0 mt-0.5"></i>
+                            <span class="text-gray-300">Configuración personalizada del sistema.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="download" class="h-5 w-5 text-blue-500 shrink-0 mt-0.5"></i>
+                            <span class="text-gray-300">Alojamiento web y dominio profesional gratuito.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="download" class="h-5 w-5 text-blue-500 shrink-0 mt-0.5"></i>
+                            <span class="text-gray-300">Carga inicial de inventario y configuración de base de datos.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="download" class="h-5 w-5 text-blue-500 shrink-0 mt-0.5"></i>
+                            <span class="text-gray-300">Capacitación de uso para administradores y cajeros.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="download" class="h-5 w-5 text-blue-500 shrink-0 mt-0.5"></i>
+                            <span class="text-gray-300">Entrega completa de códigos fuente del proyecto.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="download" class="h-5 w-5 text-blue-500 shrink-0 mt-0.5"></i>
+                            <span class="text-gray-300">Acceso total: Claves de alojamiento, base de datos y dominio.</span>
+                        </li>
+                    </ul>
+
+                    <div class="flex flex-wrap items-center gap-4 border-t border-gray-800 pt-8 mt-auto">
+                        <div>
+                            <div class="text-sm text-gray-500 uppercase font-bold tracking-widest mb-1">Inversión</div>
+                            <div class="text-3xl font-bold tracking-tight">Pago Único de Servicio</div>
+                        </div>
+                        <a href="https://wa.me/584243496129" class="ml-auto rounded-full bg-blue-600 px-6 py-3 font-bold text-white hover:bg-blue-700 transition-colors shadow-lg active:scale-95">Me Interesa</a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        <i data-lucide="layout-dashboard" class="text-blue-600"></i> Sistema Personalizado
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        Cada negocio es un mundo. Por eso, nuestro servicio no es solo instalar; es adecuar el sistema a tu gusto y necesidades específicas del mercado.
+                    </p>
+                    
+                    <div class="grid gap-6 sm:grid-cols-2">
+                        <div class="p-6 rounded-2xl border border-gray-100 bg-gray-50">
+                            <h4 class="font-bold text-gray-900 mb-2">Sin Mensualidades</h4>
+                            <p class="text-sm text-gray-600">Al adquirir el servicio, el sistema es tuyo. No hay cobros recurrentes de licencia por el uso básico.</p>
+                        </div>
+                        <div class="p-6 rounded-2xl border border-gray-100 bg-gray-50">
+                            <h4 class="font-bold text-gray-900 mb-2">Soporte Técnico</h4>
+                            <p class="text-sm text-gray-600">Acompañamiento post-instalación para asegurar que tu operación nunca se detenga.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-6 rounded-2xl border border-dashed border-blue-200 bg-blue-50/50">
+                        <p class="text-sm text-blue-800 leading-relaxed">
+                            <strong>Nota Importante:</strong> El dominio y la configuración de base de datos son gestionados como cortesía dentro del paquete de servicio, permitiendo una infraestructura profesional sin sobrecostos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-24 bg-gray-50">
+        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-16">Preguntas Frecuentes</h2>
+            
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="border-b border-gray-200 py-4">
+                    <button class="faq-toggle flex w-full items-center justify-between text-left focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">¿Recibo los códigos fuente del sistema?</span>
+                        <i data-lucide="chevron-down" class="h-5 w-5 text-gray-500 transition-transform"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p class="mt-2 text-gray-600 leading-relaxed">Sí, al contratar el servicio de instalación y personalización, se te entregan los códigos fuente originales del proyecto, garantizando que el sistema es de tu propiedad total.</p>
+                    </div>
+                </div>
+                <!-- FAQ 2 -->
+                <div class="border-b border-gray-200 py-4">
+                    <button class="faq-toggle flex w-full items-center justify-between text-left focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">¿Qué tan seguro es el acceso a mis datos?</span>
+                        <i data-lucide="chevron-down" class="h-5 w-5 text-gray-500 transition-transform"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p class="mt-2 text-gray-600 leading-relaxed">El sistema cuenta con autenticación de alta seguridad con encriptación. Solo personal autorizado mediante usuario y contraseña puede acceder a la información, con diferentes niveles de privilegio asignables.</p>
+                    </div>
+                </div>
+                <!-- FAQ 3 -->
+                <div class="border-b border-gray-200 py-4">
+                    <button class="faq-toggle flex w-full items-center justify-between text-left focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">¿Puedo exportar mis reportes mensuales?</span>
+                        <i data-lucide="chevron-down" class="h-5 w-5 text-gray-500 transition-transform"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p class="mt-2 text-gray-600 leading-relaxed">Absolutamente. El sistema permite generar reportes detallados en formatos Excel (.xlsx) y PDF, listos para ser usados en procesos contables o auditorías internas.</p>
+                    </div>
+                </div>
+                <!-- FAQ 4 -->
+                <div class="border-b border-gray-200 py-4">
+                    <button class="faq-toggle flex w-full items-center justify-between text-left focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">¿Realmente el dominio y la base de datos son gratis?</span>
+                        <i data-lucide="chevron-down" class="h-5 w-5 text-gray-500 transition-transform"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p class="mt-2 text-gray-600 leading-relaxed">Sí, incluimos dentro de la arquitectura la configuración de servicios cloud gratuitos de alto rendimiento (hasta 52k conexiones) y la gestión del dominio, lo que permite operar sin costos fijos de servidor para la mayoría de negocios pequeños y medianos.</p>
+                    </div>
+                </div>
+                <!-- FAQ 5 -->
+                <div class="border-b border-gray-200 py-4">
+                    <button class="faq-toggle flex w-full items-center justify-between text-left focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">¿Cómo solicito una demostración?</span>
+                        <i data-lucide="chevron-down" class="h-5 w-5 text-gray-500 transition-transform"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p class="mt-2 text-gray-600 leading-relaxed">Puedes hacer clic en 'Ver Demo En Vivo' en la parte superior o contactarnos directamente por WhatsApp para una demostración guiada basada en tus necesidades de negocio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-100 bg-white py-12">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center justify-between gap-8 md:flex-row">
+                <div class="flex items-center gap-2">
+                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 font-bold text-white uppercase italic">S</div>
+                    <span class="text-lg font-bold tracking-tight text-gray-900">SisGestFactPro002</span>
+                </div>
+                
+                <div class="flex gap-6">
+                    <a href="https://wa.me/584243496129" target="_blank" rel="noopener noreferrer" title="Escríbenos por WhatsApp" class="flex h-12 w-12 items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-green-500 hover:text-white transition-all transform hover:scale-110 shadow-sm">
+                        <i data-lucide="message-square" class="h-6 w-6"></i>
+                    </a>
+                    <a href="mailto:feliperojas1926@gmail.com" class="flex h-12 w-12 items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-blue-500 hover:text-white transition-all transform hover:scale-110 shadow-sm" title="Envíanos un Correo">
+                        <i data-lucide="mail" class="h-6 w-6"></i>
+                    </a>
+                </div>
+
+                <p class="text-sm text-gray-500 font-medium">
+                    Desarrollado con precisión para empresas modernas. © <span id="year"></span>
+                </p>
+            </div>
+            
+            <div class="mt-12 border-t border-gray-50 pt-8 text-center text-[10px] text-gray-400 uppercase tracking-widest leading-loose">
+                SEO: Sistema Gestión Facturación Inventario Pymes Venezuela Latinoamerica • SisGestFactPro002 • Reportes Excel PDF • Vercel App • Facturación Proveedores
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile CTA -->
+    <div class="fixed bottom-6 right-6 flex flex-col gap-3 md:hidden">
+        <a href="https://wa.me/584243496129" target="_blank" rel="noopener noreferrer" class="flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white shadow-2xl hover:scale-110 transition-transform active:scale-90">
+            <i data-lucide="message-square" class="h-7 w-7"></i>
+        </a>
+    </div>
+
+    <!-- Initialization Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Update Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // FAQ Accordion Logic
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('[data-lucide="chevron-down"]');
+                
+                // Toggle current item
+                const isOpen = content.classList.contains('open');
+                
+                // Close all other items (optional, but cleaner)
+                document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('open'));
+                document.querySelectorAll('.transition-transform').forEach(el => el.classList.remove('rotate-180'));
+                
+                if (!isOpen) {
+                    content.classList.add('open');
+                    if (icon) icon.classList.add('rotate-180');
+                }
+            });
+        });
+
+        // Simple Fade-in animation
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100');
+                    entry.target.classList.remove('translate-y-4');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div').forEach(section => {
+            section.classList.add('transition-all', 'duration-700', 'translate-y-4', 'opacity-0');
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
+
